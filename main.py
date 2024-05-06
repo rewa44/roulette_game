@@ -1,5 +1,6 @@
 import pygame
 import random
+from roulette import Roulette
 pygame.init()
 pygame.font.init()
 my_font = pygame.font.SysFont('Arial', 15)
@@ -14,19 +15,20 @@ b = 130
 run = True
 title = True
 gamek = False
+rumz = Roulette(10, 350)
 while run:
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
         if (event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP) and title:
             title = False
-            gamek  = True
+            gamek = True
 
     if title:
         screen.fill((r, g, b))
         # add opening image
         pygame.display.update()
-   if gamek:
+    if gamek:
         screen.fill((r+180, g+40, b+20))
-        # add opening image
+        screen.blit(rumz.image, rumz.rect)
         pygame.display.update()
