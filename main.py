@@ -13,19 +13,20 @@ g = 120
 b = 130
 run = True
 title = True
-
+gamek = False
 while run:
     for event in pygame.event.get():  # User did something
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
         if (event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP) and title:
             title = False
+            gamek  = True
 
     if title:
         screen.fill((r, g, b))
         # add opening image
         pygame.display.update()
-    else:
+   if gamek:
         screen.fill((r+180, g+40, b+20))
         # add opening image
         pygame.display.update()
