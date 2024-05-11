@@ -5,6 +5,7 @@ class Rod:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.fist = []
         self.pay = 3
         self.image = pygame.image.load("img.png")
         self.image_size = self.image.get_size()
