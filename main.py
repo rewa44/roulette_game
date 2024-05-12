@@ -6,6 +6,9 @@ from button import Button
 from doz import Doz
 from doz import Evdd
 from spin import Spin
+from chips import Chip
+from chips import Chip2
+from city import City
 pygame.init()
 pygame.font.init()
 by_font = pygame.font.SysFont('Arial', 15)
@@ -21,8 +24,15 @@ run = True
 title = True
 gamek = False
 rumz = Roulette(0, SCREEN_HEIGHT-406)
-balance = 0
+balance = 10000
+debt = 0
+bert = 0
+bent = False
+rep = Chip(200,50)
+rik = Chip2(400,50)
+add = False
 coords = []
+curl = City()
 singlez = []
 sunken = Spin(850, 50)
 payeez = [3,2,2,2,2,3]
@@ -33,12 +43,12 @@ for i in range(6):
     evowz.append(Evdd(140+2*i*45,490,payeez[i]))
 for i in range(36):
     singlez.append(i+1)
-print(singlez)
+
 for i in range(12):
     coords.append((140 + 45 * i, 680-300))
     coords.append((140 + 45 * i, 620-300))
     coords.append((140+45*i, 560-300))
-print(coords)
+
 for i in range(36):
     singlez[i] = Button(coords[i][0],coords[i][1])
 slunk = Rod(140,740)
@@ -58,12 +68,21 @@ for i in range(18):
     evowz[4].fist.append(2*i+1)
     evowz[2].fist.append(red[i])
     evowz[3].fist.append(black[i])
-for i in range(3):
-    print("rowz" + str(rowz[i].fist))
-for i in range(3):
-    print("dowz" + str(dowz[i].fist))
-for i in range(6):
-    print("evowz" + str(i) + str(evowz[i].fist))
+
+
+
+def spin():
+    global balance
+    p = random.randint(0,36)
+    print(p)
+    for item in curl.kist:
+        if item[0] == p:
+            balance += (item[1] * item[2])
+            print("hit!")
+    curl.kist = []
+
+
+
 
 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 while run:
@@ -75,15 +94,33 @@ while run:
             title = False
             gamek = True
         if event.type == pygame.MOUSEBUTTONUP:
-            for i in range(36):
+            if rep.rect.collidepoint(pos):
+                bert = 100
+            if rik.rect.collidepoint(pos):
+                bert = 500
+            elif sunken.rect.collidepoint(pos) and bert != 0:
+                spin()
+                disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+
+            for i in range(3):
                 if singlez[i].rect.collidepoint(pos):
                     print(i+1)
+                    # curl.kist.append([i, bert, 36])
+                    # balance -= bert
+                    # disp_bal = my_font.render(str(balance), True, (255, 255, 255))
             for i in range(3):
-                if rowz[i].rect.collidepoint(pos):
+                if rowz[i].rect.collidepoint(pos) and bert != 0:
                     print("rowz" + str(i+1))
+                    for m in range(12):
+                        curl.kist.append([rowz[i].fist[m],bert,3])
+                    balance -= bert
+                    disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+
+
             for i in range(3):
                 if dowz[i].rect.collidepoint(pos):
                     print("dowz" + str(i+1))
+                    print(curl.kist)
             for i in range(6):
                 if evowz[i].rect.collidepoint(pos):
                     print("evowz" + str(i+1))
@@ -96,4 +133,6 @@ while run:
         screen.blit(rumz.image, rumz.rect)
         screen.blit(sunken.image, sunken.rect)
         screen.blit(disp_bal, (600,100))
+        screen.blit(rep.image, rep.rect)
+        screen.blit(rik.image, rik.rect)
         pygame.display.update()
