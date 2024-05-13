@@ -8,6 +8,7 @@ from doz import Evdd
 from spin import Spin
 from chips import Chip
 from chips import Chip2
+from chips import Chip3
 from city import City
 pygame.init()
 pygame.font.init()
@@ -30,6 +31,7 @@ bert = 0
 bent = False
 rep = Chip(200,50)
 rik = Chip2(400,50)
+ros = Chip3(600,50)
 add = False
 coords = []
 curl = City()
@@ -69,16 +71,23 @@ for i in range(18):
     evowz[2].fist.append(red[i])
     evowz[3].fist.append(black[i])
 
-
-
+put = 0
+disp_put = my_font.render(str(put), True, (255, 255, 255))
 def spin():
     global balance
+    global disp_put
+    global put
+    global bert
     p = random.randint(0,36)
+    # p = 27
     print(p)
     for item in curl.kist:
         if item[0] == p:
             balance += (item[1] * item[2])
             print("hit!")
+    put = 0
+    disp_put = my_font.render(str(put), True, (255, 255, 255))
+    bert = 0
     curl.kist = []
 
 
@@ -96,34 +105,53 @@ while run:
         if event.type == pygame.MOUSEBUTTONUP:
             if rep.rect.collidepoint(pos):
                 bert = 100
-            if rik.rect.collidepoint(pos):
+            elif rik.rect.collidepoint(pos):
                 bert = 500
+            elif ros.rect.collidepoint(pos):
+                bert = 1000
             elif sunken.rect.collidepoint(pos) and bert != 0:
                 spin()
                 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 
-            for i in range(3):
+
+            for i in range(36):
                 if singlez[i].rect.collidepoint(pos):
-                    print(i+1)
-                    # curl.kist.append([i, bert, 36])
-                    # balance -= bert
-                    # disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+                    print("sing" + str(i+1))
+                    curl.kist.append([i+1, bert, 36])
+                    balance -= bert
+                    put += bert
+                    disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+                    disp_put = my_font.render(str(put), True, (255, 255, 255))
             for i in range(3):
                 if rowz[i].rect.collidepoint(pos) and bert != 0:
                     print("rowz" + str(i+1))
                     for m in range(12):
                         curl.kist.append([rowz[i].fist[m],bert,3])
                     balance -= bert
+                    put += bert
                     disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+                    disp_put = my_font.render(str(put), True, (255, 255, 255))
+
 
 
             for i in range(3):
                 if dowz[i].rect.collidepoint(pos):
                     print("dowz" + str(i+1))
-                    print(curl.kist)
+                    for m in range(12):
+                        curl.kist.append([dowz[i].fist[m], bert, 3])
+                    balance -= bert
+                    put += bert
+                    disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+                    disp_put = my_font.render(str(put), True, (255, 255, 255))
             for i in range(6):
                 if evowz[i].rect.collidepoint(pos):
                     print("evowz" + str(i+1))
+                    for m in range(18):
+                        curl.kist.append([evowz[i].fist[m], bert, 2])
+                    balance -= bert
+                    put += bert
+                    disp_bal = my_font.render(str(balance), True, (255, 255, 255))
+                    disp_put = my_font.render(str(put), True, (255, 255, 255))
     if title:
         screen.fill((r, g, b))
         # add opening image
@@ -132,7 +160,9 @@ while run:
         screen.fill((r, g, b)) # placeholder
         screen.blit(rumz.image, rumz.rect)
         screen.blit(sunken.image, sunken.rect)
-        screen.blit(disp_bal, (600,100))
+        screen.blit(disp_bal, (800,350))
         screen.blit(rep.image, rep.rect)
         screen.blit(rik.image, rik.rect)
+        screen.blit(ros.image, ros.rect)
+        screen.blit(disp_put, (300,160))
         pygame.display.update()
