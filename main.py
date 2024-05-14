@@ -1,5 +1,7 @@
 import pygame
+
 import random
+import time
 from rod import Rod
 from roulette import Roulette
 from button import Button
@@ -10,14 +12,19 @@ from chips import Chip
 from chips import Chip2
 from chips import Chip3
 from city import City
+import os
+
 pygame.init()
 pygame.font.init()
 by_font = pygame.font.SysFont('Arial', 15)
 my_font = pygame.font.SysFont('Arial', 65)
+os.environ['SDL_VIDEO_CENTERED'] = '1'
+info = pygame.display.Info()
+SCREEN_WIDTH, SCREEN_HEIGHT = info.current_w, info.current_h
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = 1200
-size = (SCREEN_WIDTH, SCREEN_HEIGHT)
-screen = pygame.display.set_mode(size)
+size = (SCREEN_WIDTH - 10, SCREEN_HEIGHT - 50)
+screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 r = 14
 g = 104
 b = 45
@@ -73,18 +80,30 @@ for i in range(18):
 
 put = 0
 disp_put = my_font.render(str(put), True, (255, 255, 255))
+hello = ""
+disp_hello = my_font.render(str(hello), True, (255, 255, 255))
+disp_barf = my_font.render(str("hello"), True, (255, 255, 255))
 def spin():
     global balance
     global disp_put
     global put
     global bert
+    global disp_hello
+    global hello
+    global disp_barf
     p = random.randint(0,36)
-    # p = 27
+    # p = 23
     print(p)
+    time.sleep(3)
+    disp_barf = my_font.render(str(p), True, (255, 255, 255))
+    hello = "You lose!"
     for item in curl.kist:
         if item[0] == p:
             balance += (item[1] * item[2])
             print("hit!")
+            hello = "You win!"
+    disp_hello = my_font.render(str(hello), True, (255, 255, 255))
+
     put = 0
     disp_put = my_font.render(str(put), True, (255, 255, 255))
     bert = 0
@@ -110,6 +129,7 @@ while run:
             elif ros.rect.collidepoint(pos):
                 bert = 1000
             elif sunken.rect.collidepoint(pos) and bert != 0:
+                disp_hello = my_font.render(str("spinning..."), True, (255, 255, 255))
                 spin()
                 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 
@@ -165,4 +185,6 @@ while run:
         screen.blit(rik.image, rik.rect)
         screen.blit(ros.image, ros.rect)
         screen.blit(disp_put, (300,160))
+        screen.blit(disp_hello, (800,300))
+        screen.blit(disp_barf, (750,400))
         pygame.display.update()
