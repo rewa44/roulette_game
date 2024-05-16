@@ -45,7 +45,7 @@ curl = City()
 singlez = []
 sunken = Spin(850, 50)
 payeez = [3,2,2,2,2,3]
-rowz = [Rod(675,560-300),Rod(675,620-300),Rod(675,680-300)]
+rowz = [Rod(675,680-300),Rod(675,620-300),Rod(675,560-300)]
 dowz = [Doz(140,745-300),Doz(140+45*4,745-300),Doz(140+45*8,745-300)]
 evowz = []
 for i in range(6):
@@ -54,9 +54,11 @@ for i in range(36):
     singlez.append(i+1)
 
 for i in range(12):
-    coords.append((140 + 45 * i, 680-300))
-    coords.append((140 + 45 * i, 620-300))
-    coords.append((140+45*i, 560-300))
+    coords.append((140 + 45 * i, 680 - 300))
+    coords.append((140 + 45 * i, 620 - 300))
+    coords.append((140 + 45 * i, 560 - 300))
+
+
 
 for i in range(36):
     singlez[i] = Button(coords[i][0],coords[i][1])
@@ -94,6 +96,7 @@ def spin():
     p = random.randint(0,36)
     # p = 23
     print(p)
+    disp_hello = my_font.render(str("spinning..."), True, (255, 255, 255))
     time.sleep(3)
     disp_barf = my_font.render(str(p), True, (255, 255, 255))
     hello = "You lose!"
