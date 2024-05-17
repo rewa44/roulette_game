@@ -1,5 +1,5 @@
 import pygame
-
+import math
 import random
 import time
 from rod import Rod
@@ -13,7 +13,8 @@ from chips import Chip2
 from chips import Chip3
 from city import City
 import os
-
+from proto import Wheel
+from proto import Ball
 pygame.init()
 pygame.font.init()
 by_font = pygame.font.SysFont('Arial', 15)
@@ -28,6 +29,8 @@ screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 r = 14
 g = 104
 b = 45
+w = Wheel(890,300)
+bud = Ball(890,300)
 run = True
 title = True
 gamek = False
@@ -112,8 +115,16 @@ def spin():
     bert = 0
     curl.kist = []
 
-
-
+def move():
+    yes = True
+    angle = 0
+    center = w.rect.center
+    while yes:
+        bud.x = math.cos(angle) + center
+        bud.y = math.sin(angle) + center
+        print(bud.x)
+        print(bud.y)
+        angle += 0.01
 
 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 while run:
@@ -134,6 +145,7 @@ while run:
             elif sunken.rect.collidepoint(pos) and bert != 0:
                 disp_hello = my_font.render(str("spinning..."), True, (255, 255, 255))
                 spin()
+                move()
                 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 
 
@@ -190,4 +202,6 @@ while run:
         screen.blit(disp_put, (300,160))
         screen.blit(disp_hello, (800,300))
         screen.blit(disp_barf, (750,400))
+        screen.blit(w.image, w.rect)
+        screen.blit(bud.image, bud.rect)
         pygame.display.update()
