@@ -100,7 +100,7 @@ def spin():
     # p = 23
     print(p)
     disp_hello = my_font.render(str("spinning..."), True, (255, 255, 255))
-    time.sleep(3)
+    # time.sleep(3)
     disp_barf = my_font.render(str(p), True, (255, 255, 255))
     hello = "You lose!"
     for item in curl.kist:
@@ -118,13 +118,33 @@ def spin():
 def move():
     yes = True
     angle = 0
+    perk = 1.0
     center = w.rect.center
     while yes:
-        bud.x = math.cos(angle) + center
-        bud.y = math.sin(angle) + center
+        bud.x = 120 * math.cos(math.radians(angle)) + 300
+        bud.y = 120 * math.sin(math.radians(angle)) + 150
+        bud.rect = pygame.Rect(bud.x, bud.y, bud.image_size[0] * 0.1, bud.image_size[1] * 0.1)
+        screen.fill((r, g, b))  # placeholder
+        screen.blit(rumz.image, rumz.rect)
+        screen.blit(sunken.image, sunken.rect)
+        screen.blit(disp_bal, (800, 350))
+        screen.blit(rep.image, rep.rect)
+        screen.blit(rik.image, rik.rect)
+        screen.blit(ros.image, ros.rect)
+        screen.blit(disp_put, (300, 160))
+        screen.blit(disp_hello, (800, 300))
+        screen.blit(disp_barf, (750, 400))
+        screen.blit(w.image, w.rect)
+        screen.blit(bud.image, bud.rect)
+        pygame.display.update()
         print(bud.x)
         print(bud.y)
-        angle += 0.01
+        angle += perk
+        # print(perk)
+        # perk *= 0.9995
+        if angle >= 360 * 10:
+            yes = False
+    return "hello"
 
 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 while run:
