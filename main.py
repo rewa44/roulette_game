@@ -114,11 +114,13 @@ def spin():
     disp_put = my_font.render(str(put), True, (255, 255, 255))
     bert = 0
     curl.kist = []
+highway = [0,32,15,19,4,21,2,25,17,3,4,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,26]
+ket = 360/37
 
 def move():
     yes = True
-    angle = 0
-    perk = 1.0
+    angle = random.randint(0,359)
+    perk = random.uniform(4.7, 6.2)
     center = w.rect.center
     while yes:
         bud.x = 120 * math.cos(math.radians(angle)) + 300
@@ -140,10 +142,13 @@ def move():
         print(bud.x)
         print(bud.y)
         angle += perk
-        # print(perk)
-        # perk *= 0.9995
-        if angle >= 360 * 10:
-            yes = False
+        if angle > 360:
+            angle = 0
+        print(perk)
+        perk *= 0.9985
+        if perk < 0.1:
+            break
+            return angle / ket
     return "hello"
 
 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
