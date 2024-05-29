@@ -118,10 +118,13 @@ highway = [0,32,15,19,4,21,2,25,17,3,4,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,
 ket = 360/37
 
 def move():
+    frame = 0 #
+    clock = pygame.time.Clock() #
     yes = True
     angle = random.randint(0,359)
     perk = random.uniform(4.7, 6.2)
     center = w.rect.center
+    global disp_hello
     while yes:
         bud.x = 120 * math.cos(math.radians(angle)) + 300
         bud.y = 120 * math.sin(math.radians(angle)) + 150
@@ -141,15 +144,44 @@ def move():
         pygame.display.update()
         print(bud.x)
         print(bud.y)
-        angle += perk
+        clock.tick(120)
+        if frame % 100 == 0:
+            angle += perk
         if angle > 360:
             angle = 0
-        print(perk)
+        print("whats up    " + str(perk))
+        print("hello   " + str(angle))
+        print(str(int(angle // ket)))
         perk *= 0.9985
         if perk < 0.1:
             break
-            return angle / ket
-    return "hello"
+
+    disp_hello = my_font.render(str(highway[int(angle // ket)]), True, (255, 255, 255))
+    return highway[int(angle // ket)]
+
+def test():
+    frame = 0
+    clock = pygame.time.Clock()
+    yes = True
+    angle = random.randint(0,359)
+    perk = random.uniform(4.7, 6.2)
+    while yes:
+        clock.tick(120)
+        bud.x = 120 * math.cos(math.radians(angle)) + 300
+        bud.y = 120 * math.sin(math.radians(angle)) + 150
+        if frame % 60 == 0:
+            angle += perk
+        if angle > 360:
+            angle = 0
+        print(perk)
+        print("hello   " + str(angle))
+        print(str(int(angle // ket)))
+        perk *= 0.9985
+        if perk < 0.1:
+            break
+
+    return str( str(highway[int(angle // ket)]))
+
 
 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 while run:
@@ -169,8 +201,7 @@ while run:
                 bert = 1000
             elif sunken.rect.collidepoint(pos) and bert != 0:
                 disp_hello = my_font.render(str("spinning..."), True, (255, 255, 255))
-                spin()
-                move()
+                print(move())
                 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 
 
