@@ -61,7 +61,7 @@ for i in range(12):
     coords.append((140 + 45 * i, 620 - 300))
     coords.append((140 + 45 * i, 560 - 300))
 
-
+angle = 0
 
 for i in range(36):
     singlez[i] = Button(coords[i][0],coords[i][1])
@@ -116,18 +116,16 @@ def spin():
     curl.kist = []
 highway = [0,32,15,19,4,21,2,25,17,3,4,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,26]
 ket = 360/37
-
 def move():
     frame = 0 #
     clock = pygame.time.Clock() #
     yes = True
-    angle = random.randint(0,359)
-    perk = random.uniform(4.7, 6.2)
-    center = w.rect.center
+    global angle
+    perk = random.randint(4,7) + random.randint(0,9) * 0.1 + random.randint(0,9) * 0.01
     global disp_hello
     while yes:
-        bud.x = 120 * math.cos(math.radians(angle)) + 300
-        bud.y = 120 * math.sin(math.radians(angle)) + 150
+        bud.x = 120 * math.cos(math.radians(angle)) + 900
+        bud.y = 120 * math.sin(math.radians(angle)) + 350
         bud.rect = pygame.Rect(bud.x, bud.y, bud.image_size[0] * 0.1, bud.image_size[1] * 0.1)
         screen.fill((r, g, b))  # placeholder
         screen.blit(rumz.image, rumz.rect)
@@ -144,16 +142,18 @@ def move():
         pygame.display.update()
         print(bud.x)
         print(bud.y)
-        clock.tick(120)
-        if frame % 100 == 0:
+        clock.tick(400)
+        frame += 10
+        if frame % 20 == 0:
             angle += perk
+            print("money   " + str(frame))
         if angle > 360:
             angle = 0
         print("whats up    " + str(perk))
         print("hello   " + str(angle))
         print(str(int(angle // ket)))
         perk *= 0.9985
-        if perk < 0.1:
+        if perk < 0.2:
             break
 
     disp_hello = my_font.render(str(highway[int(angle // ket)]), True, (255, 255, 255))
@@ -177,7 +177,7 @@ def test():
         print("hello   " + str(angle))
         print(str(int(angle // ket)))
         perk *= 0.9985
-        if perk < 0.1:
+        if perk < 0.2:
             break
 
     return str( str(highway[int(angle // ket)]))
