@@ -5,7 +5,7 @@ class Wheel:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        park = 0.3
+        park = 0.5
         self.image = pygame.image.load("samtp.png")
         self.image_size = self.image.get_size()
         scale_size = (self.image_size[0] * park, self.image_size[1] * park)

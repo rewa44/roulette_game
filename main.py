@@ -116,12 +116,15 @@ def spin():
     curl.kist = []
 highway = [0,32,15,19,4,21,2,25,17,3,4,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,26]
 ket = 360/37
+pitt = 3232323232
 def move():
     frame = 0 #
+    global pitt
+    pitt = 32030
     clock = pygame.time.Clock() #
     yes = True
     global angle
-    perk = random.randint(4,7) + random.randint(0,9) * 0.1 + random.randint(0,9) * 0.01
+    perk = round(random.uniform(4, 7.23),2)
     global disp_hello
     while yes:
         bud.x = 120 * math.cos(math.radians(angle)) + 900
@@ -157,6 +160,7 @@ def move():
             break
 
     disp_hello = my_font.render(str(highway[int(angle // ket)]), True, (255, 255, 255))
+    pitt = highway[int(angle // ket)]
     return highway[int(angle // ket)]
 
 def test():
@@ -202,6 +206,12 @@ while run:
             elif sunken.rect.collidepoint(pos) and bert != 0:
                 disp_hello = my_font.render(str("spinning..."), True, (255, 255, 255))
                 print(move())
+                for item in curl.kist:
+                    if item[0] == pitt:
+                        balance += (item[1] * item[2])
+                        print("hit!")
+                        hello = "You win!"
+                disp_hello = my_font.render(str(hello), True, (255, 255, 255))
                 disp_bal = my_font.render(str(balance), True, (255, 255, 255))
 
 
