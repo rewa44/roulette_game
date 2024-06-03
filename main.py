@@ -2,19 +2,10 @@ import pygame
 import math
 import random
 import time
-from rod import Rod
-from roulette import Roulette
-from button import Button
-from doz import Doz
-from doz import Evdd
-from spin import Spin
-from chips import Chip
-from chips import Chip2
-from chips import Chip3
-from city import City
+imparted = ["Rod", "Roulette", "Button", "Doz"]
+from rod import *
 import os
-from proto import Wheel
-from proto import Ball
+
 pygame.init()
 pygame.font.init()
 by_font = pygame.font.SysFont('Arial', 15)
@@ -39,9 +30,9 @@ balance = 10000
 debt = 0
 bert = 0
 bent = False
-rep = Chip(200,50)
-rik = Chip2(400,50)
-ros = Chip3(600,50)
+rep = Chip(0,0)
+rik = Chip2(150,0)
+ros = Chip3(300,0)
 add = False
 coords = []
 curl = City()
@@ -88,6 +79,7 @@ disp_put = my_font.render(str(put), True, (255, 255, 255))
 hello = ""
 disp_hello = my_font.render(str(hello), True, (255, 255, 255))
 disp_barf = my_font.render(str("hello"), True, (255, 255, 255))
+disp_belt = my_font.render(str("points:"), True, (255, 255, 255))
 def spin():
     global balance
     global disp_put
@@ -133,11 +125,12 @@ def move():
         screen.fill((r, g, b))  # placeholder
         screen.blit(rumz.image, rumz.rect)
         screen.blit(sunken.image, sunken.rect)
-        screen.blit(disp_bal, (800, 350))
+        screen.blit(disp_bal, (300,160))
         screen.blit(rep.image, rep.rect)
         screen.blit(rik.image, rik.rect)
         screen.blit(ros.image, ros.rect)
-        screen.blit(disp_put, (300, 160))
+        screen.blit(disp_belt, (100, 160))
+        screen.blit(disp_put, (800, 20))
         screen.blit(disp_hello, (800, 300))
         screen.blit(disp_barf, (750, 400))
         screen.blit(w.image, w.rect)
@@ -261,11 +254,12 @@ while run:
         screen.fill((r, g, b)) # placeholder
         screen.blit(rumz.image, rumz.rect)
         screen.blit(sunken.image, sunken.rect)
-        screen.blit(disp_bal, (800,350))
+        screen.blit(disp_bal, (300,160))
         screen.blit(rep.image, rep.rect)
         screen.blit(rik.image, rik.rect)
         screen.blit(ros.image, ros.rect)
-        screen.blit(disp_put, (300,160))
+        screen.blit(disp_belt, (100,160))
+        screen.blit(disp_put, (800,20))
         screen.blit(disp_hello, (800,300))
         screen.blit(disp_barf, (750,400))
         screen.blit(w.image, w.rect)
