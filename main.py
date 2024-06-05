@@ -20,7 +20,7 @@ screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 r = 14
 g = 104
 b = 45
-w = Wheel(890,300)
+w = Wheel(820,250)
 bud = Ball(890,300)
 run = True
 title = True
@@ -130,7 +130,7 @@ def move():
         screen.blit(rik.image, rik.rect)
         screen.blit(ros.image, ros.rect)
         screen.blit(disp_belt, (100, 160))
-        screen.blit(disp_put, (800, 20))
+        screen.blit(disp_put, (800, 10))
         screen.blit(disp_hello, (800, 300))
         screen.blit(disp_barf, (750, 400))
         screen.blit(w.image, w.rect)
@@ -259,7 +259,7 @@ while run:
         screen.blit(rik.image, rik.rect)
         screen.blit(ros.image, ros.rect)
         screen.blit(disp_belt, (100,160))
-        screen.blit(disp_put, (800,20))
+        screen.blit(disp_put, (800,10))
         screen.blit(disp_hello, (800,300))
         screen.blit(disp_barf, (750,400))
         screen.blit(w.image, w.rect)

@@ -97,7 +97,7 @@ class Ball:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        park = 0.7
+        park = 0.3
         self.image = pygame.image.load("download.jpg")
         self.image_size = self.image.get_size()
         scale_size = (self.image_size[0] * park, self.image_size[1] * park)
@@ -136,7 +136,7 @@ class Chip3:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        park = 0.7
+        park = 0.865
         self.image = pygame.image.load("clementine.png")
         self.image_size = self.image.get_size()
         scale_size = (self.image_size[0] * park, self.image_size[1] * park)
