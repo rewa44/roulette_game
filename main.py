@@ -106,7 +106,7 @@ def spin():
     disp_put = my_font.render(str(put), True, (255, 255, 255))
     bert = 0
     curl.kist = []
-highway = [0,32,15,19,4,21,2,25,17,3,4,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,26]
+highway = [0,32,15,19,4,21,2,25,17,3,4,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26]
 ket = 360/37
 pitt = 3232323232
 def move():
@@ -119,23 +119,9 @@ def move():
     perk = round(random.uniform(4, 7.23),2)
     global disp_hello
     while yes:
-        bud.x = 120 * math.cos(math.radians(angle)) + 900
-        bud.y = 120 * math.sin(math.radians(angle)) + 350
+        bud.x = 120 * math.cos(math.radians(angle)) + w.x + (612/4) - 30/2 + 5
+        bud.y = 120 * math.sin(math.radians(angle)) + w.y + (612/4) - 30/2 + 5
         bud.rect = pygame.Rect(bud.x, bud.y, bud.image_size[0] * 0.1, bud.image_size[1] * 0.1)
-        screen.fill((r, g, b))  # placeholder
-        screen.blit(rumz.image, rumz.rect)
-        screen.blit(sunken.image, sunken.rect)
-        screen.blit(disp_bal, (300,160))
-        screen.blit(rep.image, rep.rect)
-        screen.blit(rik.image, rik.rect)
-        screen.blit(ros.image, ros.rect)
-        screen.blit(disp_belt, (100, 160))
-        screen.blit(disp_put, (800, 10))
-        screen.blit(disp_hello, (800, 300))
-        screen.blit(disp_barf, (750, 400))
-        screen.blit(w.image, w.rect)
-        screen.blit(bud.image, bud.rect)
-        pygame.display.update()
         print(bud.x)
         print(bud.y)
         clock.tick(400)
@@ -147,14 +133,36 @@ def move():
             angle = 0
         print("whats up    " + str(perk))
         print("hello   " + str(angle))
-        print(str(int(angle // ket)))
+        print("swag like us " + str(round(angle / ket)))
         perk *= 0.9985
+
+        screen.fill((r, g, b))
+        screen.blit(rumz.image, rumz.rect)
+        screen.blit(sunken.image, sunken.rect)
+        screen.blit(disp_bal, (300, 160))
+        screen.blit(rep.image, rep.rect)
+        screen.blit(rik.image, rik.rect)
+        screen.blit(ros.image, ros.rect)
+        screen.blit(disp_belt, (100, 160))
+        screen.blit(disp_put, (800, 10))
+        screen.blit(disp_hello, (800, 300))
+        screen.blit(disp_barf, (750, 400))
+        screen.blit(w.image, w.rect)
+        screen.blit(bud.image, bud.rect)
+        pygame.display.update()
+
         if perk < 0.2:
             break
 
+    for i in range(37):
+        if (360 / 37) * i < angle < (360 / 37) * (i + 1):
+            pitt = highway[i]
+            print(highway[i])
+            print(angle / ket)
+
     disp_hello = my_font.render(str(highway[int(angle // ket)]), True, (255, 255, 255))
-    pitt = highway[int(angle // ket)]
-    return highway[int(angle // ket)]
+    # pitt = highway[int(round(angle / ket))]
+    return pitt
 
 def test():
     frame = 0
